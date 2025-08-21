@@ -31,8 +31,10 @@ myand3 :: Bool -> Bool -> Bool
 myand3 False _ = False
 myand3 True  b = b
 
+-- def car
 myhead :: [a] -> a 
 myhead (x:_) = x
 
+-- def cdr
 mytail :: [a] -> [a]
 mytail (_:xs) = xs
