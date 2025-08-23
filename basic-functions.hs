@@ -44,3 +44,25 @@ odds n = map f [0..n-1]
               f x = x * 2 +1
 
 lodds n = map (\x -> x * 2 + 1) [0 .. n-1]
+
+safetail :: [a] -> [a]
+safetail [] = []
+safetail (_:xs) = xs
+
+mysafetail :: [a] ->[a]
+mysafetail [] = []
+mysafetail xs = tail xs
+
+mysafetail1 :: [a] ->[a]
+mysafetail1 xs = if null xs then
+                    []
+                 else 
+                    tail xs
+
+safetail2 :: [a] -> [a]
+safetail2 xs | null xs = xs
+             | otherwise = tail xs
+
+myor :: Bool -> Bool -> Bool
+myor True _ = True
+myor False b = b
