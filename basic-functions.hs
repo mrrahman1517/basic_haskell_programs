@@ -68,3 +68,14 @@ myor True _ = True
 myor _ True = True 
 myor _ _ = False
 
+myor1 :: Bool -> Bool -> Bool
+myor1 False False = False
+myor1 _ _ = True
+
+myor2 :: Bool -> Bool -> Bool
+myor2 False b = b
+myor2 True _ = True
+
+myconcat :: [[a]] -> [a]
+myconcat xss = [x| xs <- xss, x <- xs]
+
