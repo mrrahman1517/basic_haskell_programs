@@ -105,5 +105,7 @@ len [] = 0
 len (x:xs) = 1 + len xs
 
 prime :: Int -> Bool
+prime n = len (factors n) == 2
 
-prime n = len (factors n) == 2 
+prime2 :: Int -> Bool
+prime2 n = factors n == [1,n]
