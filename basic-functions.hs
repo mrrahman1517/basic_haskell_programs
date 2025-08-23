@@ -96,3 +96,14 @@ myor2 True _ = True
 -- | Concatenates a list of lists into a single list
 myconcat :: [[a]] -> [a]
 myconcat xss = [x| xs <- xss, x <- xs]
+
+factors :: Int -> [Int]
+factors n = [d | d <- [1..n], mod n d == 0]
+
+len :: [a] -> Int
+len [] = 0
+len (x:xs) = 1 + len xs
+
+prime :: Int -> Bool
+
+prime n = len (factors n) == 2 
