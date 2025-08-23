@@ -38,3 +38,9 @@ myhead (x:_) = x
 -- def cdr
 mytail :: [a] -> [a]
 mytail (_:xs) = xs
+
+odds n = map f [0..n-1]
+         where 
+              f x = x * 2 +1
+
+lodds n = map (\x -> x * 2 + 1) [0 .. n-1]
