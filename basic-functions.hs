@@ -65,4 +65,6 @@ safetail2 xs | null xs = xs
 
 myor :: Bool -> Bool -> Bool
 myor True _ = True
-myor False b = b
+myor _ True = True 
+myor _ _ = False
+
