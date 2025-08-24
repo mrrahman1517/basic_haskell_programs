@@ -142,3 +142,11 @@ allprimes n = sieve [2..n]
 sieve :: [Int] -> [Int]
 sieve [] = []
 sieve (p:xs) = p : sieve [x | x <- xs, mod x p /= 0]
+
+pairs :: [a] -> [(a,a)]
+pairs xs = zip xs (tail xs)
+
+sorted :: Ord a => [a] -> Bool
+sorted xs = and [x <= y| (x,y) <- pairs xs]
+
+
