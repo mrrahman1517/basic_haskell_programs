@@ -97,6 +97,7 @@ myor2 True _ = True
 myconcat :: [[a]] -> [a]
 myconcat xss = [x| xs <- xss, x <- xs]
 
+-- | factors of an integer
 factors :: Int -> [Int]
 factors n = [d | d <- [1..n], mod n d == 0]
 
@@ -114,7 +115,7 @@ prime n = len (factors n) == 2
 --(1.72 secs, 2,000,075,560 bytes)
 --ghci> prime2 10000000
 
---prime 100000000
+-- |prime 100000000
 --False
 --(17.09 secs, 20,000,078,424 bytes)
 --ghci> prime2 100000000
@@ -129,3 +130,15 @@ prime2 n = factors n == [1,n]
 
 primes :: Int -> [Int]
 primes n = [x | x <- [1..n], prime2 x]
+-- | primes 100000
+-- | (84.61 secs, 91,141,568,808 bytes)
+
+-- | sieve algorithm
+allprimes :: Int -> [Int]
+allprimes n = sieve [2..n]
+-- | allprimes 100000
+-- | (10.04 secs, 11,854,701,336 bytes)
+
+sieve :: [Int] -> [Int]
+sieve [] = []
+sieve (p:xs) = p : sieve [x | x <- xs, mod x p /= 0]
