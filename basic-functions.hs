@@ -104,8 +104,28 @@ len :: [a] -> Int
 len [] = 0
 len (x:xs) = 1 + len xs
 
+-- no lazy evaluation 
 prime :: Int -> Bool
 prime n = len (factors n) == 2
 
+-- (0.00 secs, 65,288 bytes)
+--ghci> prime 10000000
+--False
+--(1.72 secs, 2,000,075,560 bytes)
+--ghci> prime2 10000000
+
+--prime 100000000
+--False
+--(17.09 secs, 20,000,078,424 bytes)
+--ghci> prime2 100000000
+--False
+--(0.00 secs, 65,288 bytes)
+-- for timing use: +set +s
+
+-- lazy evaluation, as long as factors call finds a factor other
+-- other than 1 or n, the equality will fail and return false
 prime2 :: Int -> Bool
 prime2 n = factors n == [1,n]
+
+primes :: Int -> [Int]
+primes n = [x | x <- [1..n], prime2 x]
