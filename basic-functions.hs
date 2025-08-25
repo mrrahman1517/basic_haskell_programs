@@ -142,3 +142,19 @@ allprimes n = sieve [2..n]
 sieve :: [Int] -> [Int]
 sieve [] = []
 sieve (p:xs) = p : sieve [x | x <- xs, mod x p /= 0]
+
+pairs :: [a] -> [(a,a)]
+pairs xs = zip xs (tail xs)
+
+sorted :: Ord a => [a] -> Bool
+sorted xs = and [x <= y| (x,y) <- pairs xs]
+
+--positions 0 [1, 0, 0, 1, 0, 1, 1, 0] = [1,2,4,7]
+positions :: Eq a => a -> [a] -> [Int]
+positions x xs = [i | (x',i) <- zip xs [0..], x'==x ]
+
+-- count char frequency in strings
+count :: Char -> String -> Int
+count x xs = length [x'| x' <- xs, x' == x]
+
+
