@@ -157,4 +157,6 @@ positions x xs = [i | (x',i) <- zip xs [0..], x'==x ]
 count :: Char -> String -> Int
 count x xs = length [x'| x' <- xs, x' == x]
 
-
+--- find pythagorean triples
+pyths :: Int -> [(Int,Int,Int)]
+pyths n = [(x,y,z) | x <- [1..n], y <- [1..n], z <- [1..n], x*x + y*y == z*z] 
