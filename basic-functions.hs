@@ -172,3 +172,14 @@ dotproduct (x:xs) (y:ys) = x * y + dotproduct xs ys
 
 dotproductv2 :: [Int] -> [Int] -> Int
 dotproductv2 xs ys= sum [x * y | (x,y) <- zip xs ys]
+
+perfect :: Int -> Bool
+perfect n = sum (init (factors n)) == n
+
+perfectsv2 :: Int -> [Int]
+perfectsv2 n = [x | x <- [1..n], perfect x]
+
+-- another scalar product 
+sp :: [Int] -> [Int] -> Int
+sp xs ys = sum [xs !! i * ys !! i | i <- [0..n-1]]
+           where n = length xs
