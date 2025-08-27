@@ -1,0 +1,3 @@
+maxi :: (Int,Int)->Int
+maxi (x,y) |    x >= y = x
+     	   | otherwise = y
