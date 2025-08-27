@@ -178,3 +178,8 @@ perfect n = sum (init (factors n)) == n
 
 perfectsv2 :: Int -> [Int]
 perfectsv2 n = [x | x <- [1..n], perfect x]
+
+-- another scalar product 
+sp :: [Int] -> [Int] -> Int
+sp xs ys = sum [xs !! i * ys !! i | i <- [0..n-1]]
+           where n = length xs
