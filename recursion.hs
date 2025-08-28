@@ -1,46 +1,96 @@
--- recursive functions
+-- Collection of recursive and list processing functions
 
+-- | Fibonacci number calculator
+-- Returns the nth number in the Fibonacci sequence
+-- Example: fib 5 = 5 (because 0,1,1,2,3,5,...)
 fib :: Int -> Int
 fib 0 = 0
 fib 1 = 1
 fib n = fib (n-1) + fib (n-2)
 
--- factorial
+-- | Factorial calculator using list product
+-- Calculates n! using the built-in product function
+-- Example: fac 4 = 24 (because 4 * 3 * 2 * 1)
 fac :: Int -> Int 
 fac n = product [1..n]
 
+-- | Recursive factorial calculator
+-- Calculates n! using explicit recursion
+-- Example: facr 4 = 24
 facr :: Int -> Int 
 facr 0 = 1
 facr n = n * facr (n-1)
 
+-- | Product of a list of numbers
+-- Recursively multiplies all elements in a list
+-- Example: myproduct [2,3,4] = 24
 myproduct :: Num a => [a] -> a
 myproduct [] = 1
 myproduct (n:ns) = n * myproduct ns
 
+-- | Length of a list
+-- Counts the number of elements in a list
+-- Example: mylength [1,2,3] = 3
 mylength :: [a] -> Int
 mylength [] = 0
 mylength (_:xs) = 1 + mylength xs
 
+-- | Reverse a list
+-- Returns a new list with elements in reverse order
+-- Example: myreverse [1,2,3] = [3,2,1]
 myreverse :: [a] -> [a]
 myreverse [] = []
 myreverse (x:xs) = reverse xs ++ [x]
 
+-- | Zip two lists together
+-- Combines corresponding elements into pairs
+-- Example: myzip [1,2] ['a','b'] = [(1,'a'),(2,'b')]
 myzip :: [a] ->[b] -> [(a,b)]
 myzip [] _ = []
 myzip _ [] = []
 myzip (x:xs) (y:ys) = (x,y) : zip xs ys
 
+-- | Drop first n elements
+-- Removes the first n elements from a list
+-- Example: mydrop 2 [1,2,3,4] = [3,4]
 mydrop :: Int -> [Int] -> [Int]
 mydrop 0 xs = xs
 mydrop _ [] = []
 mydrop n (_:xs) = mydrop (n-1) xs
 
+-- | Append two lists
+-- Combines two lists by adding the second list to the end of the first
+-- Example: myappend [1,2] [3,4] = [1,2,3,4]
 myappend :: [a] -> [a] -> [a]
 myappend [] ys = ys
 myappend (x:xs) ys = x : myappend xs ys
 
+-- | Quicksort implementation
+-- Sorts a list using the quicksort algorithm
+-- Example: myqs [3,1,4,1,5] = [1,1,3,4,5]
 myqs :: Ord a => [a] -> [a]
 myqs [] = []
 myqs (x:xs) = myqs ls ++ [x] ++ myqs rs 
               where ls = [l | l <- xs, l <= x]
                     rs = [r | r <- xs, r > x]
+
+-- | Boolean AND operation
+-- Returns True only if both inputs are True
+-- Example: myand True False = False
+myand :: Bool -> Bool -> Bool 
+myand False _ = False 
+myand True b = b
+
+-- | Check if all elements are True
+-- Returns True only if all elements in the list are True
+-- Example: myalland [True,True,True] = True
+myalland :: [Bool] -> Bool 
+myalland [] = True 
+myalland (b:bs) = myand b (myalland bs) 
+
+-- | Concatenate list of lists
+-- Combines multiple lists into a single list
+-- Example: myconcat [[1,2],[3,4]] = [1,2,3,4]
+myconcat :: [[a]] -> [a]
+myconcat [] = []
+myconcat (l:ls) = l :: myconcat ls
