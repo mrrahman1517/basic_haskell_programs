@@ -24,3 +24,17 @@ mylength (_:xs) = 1 + mylength xs
 myreverse :: [a] -> [a]
 myreverse [] = []
 myreverse (x:xs) = reverse xs ++ [x]
+
+myzip :: [a] ->[b] -> [(a,b)]
+myzip [] _ = []
+myzip _ [] = []
+myzip (x:xs) (y:ys) = (x,y) : zip xs ys
+
+mydrop :: Int -> [Int] -> [Int]
+mydrop 0 xs = xs
+mydrop _ [] = []
+mydrop n (_:xs) = mydrop (n-1) xs
+
+myappend :: [a] -> [a] -> [a]
+myappend [] ys = ys
+myappend (x:xs) ys = x : myappend xs ys
