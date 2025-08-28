@@ -20,3 +20,7 @@ myproduct (n:ns) = n * myproduct ns
 mylength :: [a] -> Int
 mylength [] = 0
 mylength (_:xs) = 1 + mylength xs
+
+myreverse :: [a] -> [a]
+myreverse [] = []
+myreverse (x:xs) = reverse xs ++ [x]
