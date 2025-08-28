@@ -112,3 +112,16 @@ melem :: Eq a => a -> [a] -> Bool
 melem v [] = False
 melem v (x:xs) | v == x = True
                | otherwise = melem v xs 
+
+-- merge sort
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] [] = []
+merge [] ys = ys 
+merge xs [] = xs
+merge (x:xs) (y:ys) | x <= y = x : merge xs (y:ys)
+                    | otherwise = y : merge (x:xs) ys
+
+-- mergesort
+mergesort :: Ord a => [a] -> [a]
+--mergsort [] = []
+--mergsort 
