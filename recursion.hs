@@ -94,3 +94,21 @@ myalland (b:bs) = myand b (myalland bs)
 myconcat :: [[a]] -> [a]
 myconcat [] = []
 myconcat (l:ls) = l ++ (myconcat ls)
+
+-- produce a list with n identical elements
+myreplicate :: Int -> a -> [a]
+myreplicate 0 x = []
+myreplicate 1 x = [x]
+myreplicate n x = x : myreplicate (n-1) x
+
+-- select the nth element of a list
+-- assume 0 <= n <= length of list
+mid :: [a] -> Int -> a
+mid (x:xs) 0 = x
+mid (x:xs) n = mid xs (n-1) 
+
+-- decide if a value is an element of a list
+melem :: Eq a => a -> [a] -> Bool
+melem v [] = False
+melem v (x:xs) | v == x = True
+               | otherwise = melem v xs 
