@@ -93,4 +93,4 @@ myalland (b:bs) = myand b (myalland bs)
 -- Example: myconcat [[1,2],[3,4]] = [1,2,3,4]
 myconcat :: [[a]] -> [a]
 myconcat [] = []
-myconcat (l:ls) = l :: myconcat ls
+myconcat (l:ls) = l ++ (myconcat ls)
