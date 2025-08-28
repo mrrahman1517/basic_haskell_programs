@@ -38,3 +38,9 @@ mydrop n (_:xs) = mydrop (n-1) xs
 myappend :: [a] -> [a] -> [a]
 myappend [] ys = ys
 myappend (x:xs) ys = x : myappend xs ys
+
+myqs :: Ord a => [a] -> [a]
+myqs [] = []
+myqs (x:xs) = myqs ls ++ [x] ++ myqs rs 
+              where ls = [l | l <- xs, l <= x]
+                    rs = [r | r <- xs, r > x]
