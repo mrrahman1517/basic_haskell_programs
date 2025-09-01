@@ -93,7 +93,7 @@ myalland (b:bs) = myand b (myalland bs)
 -- Example: myconcat [[1,2],[3,4]] = [1,2,3,4]
 myconcat :: [[a]] -> [a]
 myconcat [] = []
-myconcat (l:ls) = l ++ (myconcat ls)
+myconcat (xs:xss) = xs ++ (myconcat xss)
 
 -- produce a list with n identical elements
 myreplicate :: Int -> a -> [a]
@@ -112,3 +112,37 @@ melem :: Eq a => a -> [a] -> Bool
 melem v [] = False
 melem v (x:xs) | v == x = True
                | otherwise = melem v xs 
+
+-- merge sort
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] [] = []
+merge [] ys = ys 
+merge xs [] = xs
+merge (x:xs) (y:ys) | x <= y = x : merge xs (y:ys)
+                    | otherwise = y : merge (x:xs) ys
+
+-- mergesort
+--mergesort :: Ord a => [a] -> [a]
+--mergsort [] = []
+--mergsort 
+
+
+-- first element of a list
+firstv2 :: Num a => [a] -> a 
+firstv2 [] = 0
+firstv2 (x:xs) = x
+-- return second element of a list
+secondv2 :: Num a => [a] -> a 
+secondv2 [] = 0
+secondv2 (x:xs) = firstv2 xs
+
+secondv3 :: [Int] -> Int 
+secondv3 [] = 0 -- empty list has no second element
+secondv3 (x:[]) = 0 -- list of length 1 has no second element
+secondv3 (x:y:xs) = y -- otherwise ...
+
+plusv2 :: Int -> Int -> Int 
+plusv2 x y = x + y 
+
+sucv2 :: Int -> Int 
+sucv2 = plusv2 1
