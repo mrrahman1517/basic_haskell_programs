@@ -93,7 +93,7 @@ myalland (b:bs) = myand b (myalland bs)
 -- Example: myconcat [[1,2],[3,4]] = [1,2,3,4]
 myconcat :: [[a]] -> [a]
 myconcat [] = []
-myconcat (l:ls) = l ++ (myconcat ls)
+myconcat (xs:xss) = xs ++ (myconcat xss)
 
 -- produce a list with n identical elements
 myreplicate :: Int -> a -> [a]
