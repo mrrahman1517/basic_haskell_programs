@@ -122,6 +122,21 @@ merge (x:xs) (y:ys) | x <= y = x : merge xs (y:ys)
                     | otherwise = y : merge (x:xs) ys
 
 -- mergesort
-mergesort :: Ord a => [a] -> [a]
+--mergesort :: Ord a => [a] -> [a]
 --mergsort [] = []
 --mergsort 
+
+
+-- first element of a list
+firstv2 :: Num a => [a] -> a 
+firstv2 [] = 0
+firstv2 (x:xs) = x
+-- return second element of a list
+secondv2 :: Num a => [a] -> a 
+secondv2 [] = 0
+secondv2 (x:xs) = firstv2 xs
+
+secondv3 :: [Int] -> Int 
+secondv3 [] = 0 -- empty list has no second element
+secondv3 (x:[]) = 0 -- list of length 1 has no second element
+secondv3 (x:y:xs) = y -- otherwise ...
