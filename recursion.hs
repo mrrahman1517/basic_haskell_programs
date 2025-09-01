@@ -140,3 +140,9 @@ secondv3 :: [Int] -> Int
 secondv3 [] = 0 -- empty list has no second element
 secondv3 (x:[]) = 0 -- list of length 1 has no second element
 secondv3 (x:y:xs) = y -- otherwise ...
+
+plusv2 :: Int -> Int -> Int 
+plusv2 x y = x + y 
+
+sucv2 :: Int -> Int 
+sucv2 = plusv2 1
