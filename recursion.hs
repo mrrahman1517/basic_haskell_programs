@@ -141,8 +141,23 @@ secondv3 [] = 0 -- empty list has no second element
 secondv3 (x:[]) = 0 -- list of length 1 has no second element
 secondv3 (x:y:xs) = y -- otherwise ...
 
+
+
 plusv2 :: Int -> Int -> Int 
 plusv2 x y = x + y 
 
 sucv2 :: Int -> Int 
 sucv2 = plusv2 1
+
+headv2 :: [Int] -> Int 
+headv2 [] = 0
+headv2 (x:xs) = x
+
+tailv2 :: [a] -> [a]
+tailv2 [] = []
+tailv2 (x:xs) = xs 
+
+secondv4 :: [Int] -> Int 
+secondv4 [] = 0
+secondv4 (x:[]) = 0
+secondv4 xs = headv2 (tailv2 xs) 
