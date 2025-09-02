@@ -97,8 +97,8 @@ myconcat (xs:xss) = xs ++ (myconcat xss)
 
 -- produce a list with n identical elements
 myreplicate :: Int -> a -> [a]
-myreplicate 0 x = []
-myreplicate 1 x = [x]
+myreplicate 0 _ = []
+--myreplicate 1 x = [x]
 myreplicate n x = x : myreplicate (n-1) x
 
 -- select the nth element of a list
@@ -161,3 +161,7 @@ secondv4 :: [Int] -> Int
 secondv4 [] = 0
 secondv4 (x:[]) = 0
 secondv4 xs = headv2 (tailv2 xs) 
+
+myid :: [a] -> Int -> a 
+myid (x:xs) 0 = x 
+myid (x:xs) n = myid xs (n-1)
