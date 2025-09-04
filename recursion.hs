@@ -176,3 +176,7 @@ insertv2 :: Int -> [Int] -> [Int]
 insertv2 x [] = [x]
 insertv2 x (y:ys) = if x <= y then x:y:ys
                     else y:(insertv2 x ys)
+
+insertionsort :: [Int] -> [Int]
+insertionsort [] = []
+insertionsort (x:xs) = insert x (insertionsort xs)
