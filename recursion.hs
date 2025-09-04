@@ -163,5 +163,16 @@ secondv4 (x:[]) = 0
 secondv4 xs = headv2 (tailv2 xs) 
 
 myid :: [a] -> Int -> a 
-myid (x:xs) 0 = x 
-myid (x:xs) n = myid xs (n-1)
+myid (x:_) 0 = x 
+myid (_:xs) n = myid xs (n-1)
+
+-- insert 3 [1,2,4,5] = [1,2,3,4,5]
+insert :: Int -> [Int] -> [Int]
+insert x [] = [x]
+insert e (x:xs) | e <= x = (e:x:xs)
+                | otherwise = x:(insert e xs) 
+
+insertv2 :: Int -> [Int] -> [Int]
+insertv2 x [] = [x]
+insertv2 x (y:ys) = if x <= y then x:y:ys
+                    else y:(insertv2 x ys)
