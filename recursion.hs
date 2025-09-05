@@ -180,3 +180,10 @@ insertv2 x (y:ys) = if x <= y then x:y:ys
 insertionsort :: [Int] -> [Int]
 insertionsort [] = []
 insertionsort (x:xs) = insert x (insertionsort xs)
+
+mergev2 :: [Int] -> [Int] -> [Int]
+-- mergv2 [2,5,6] [1,3,4] = [1,2,3,4,5,6]
+mergev2 [] ys = ys
+mergev2 xs [] = xs
+mergev2 (x:xs) (y:ys) = if x <= y then x:(mergev2 xs (y:ys))
+                        else y: (mergev2 (x:xs) ys)  
