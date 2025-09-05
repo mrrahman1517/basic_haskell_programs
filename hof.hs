@@ -23,3 +23,16 @@ mapv3 f (x:xs) = f x : map f xs
 
 filterv2 :: (a -> Bool) -> [a] -> [a]
 filterv2 f xs = [x | x <- xs, f x == True]
+
+filterv3 :: (a -> Bool) -> [a] -> [a]
+filterv3 p [] = []
+filterv3 p (x:xs)
+          | p x = x : filterv3 p xs 
+          | otherwise = filterv3 p xs 
+
+
+sumv5 :: [Int] -> Int
+sumv5 = foldr (+) 0
+
+productv5 :: [Int] -> Int 
+productv5 = foldr (*) 1

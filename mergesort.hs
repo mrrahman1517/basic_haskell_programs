@@ -8,3 +8,4 @@ merge (x:xs) (y:ys)
     | x <= y    = x : merge xs (y:ys)    -- take x if it's smaller
     | otherwise = y : merge (x:xs) ys     -- take y if it's smaller
 
+
