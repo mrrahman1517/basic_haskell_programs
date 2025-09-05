@@ -20,3 +20,6 @@ mapv2 f xs = [f x| x <- xs]
 mapv3 :: (a->b) -> [a] -> [b]
 mapv3 f [] = []
 mapv3 f (x:xs) = f x : map f xs
+
+filterv2 :: (a -> Bool) -> [a] -> [a]
+filterv2 f xs = [x | x <- xs, f x == True]
