@@ -97,8 +97,8 @@ myconcat (xs:xss) = xs ++ (myconcat xss)
 
 -- produce a list with n identical elements
 myreplicate :: Int -> a -> [a]
-myreplicate 0 x = []
-myreplicate 1 x = [x]
+myreplicate 0 _ = []
+--myreplicate 1 x = [x]
 myreplicate n x = x : myreplicate (n-1) x
 
 -- select the nth element of a list
@@ -141,8 +141,65 @@ secondv3 [] = 0 -- empty list has no second element
 secondv3 (x:[]) = 0 -- list of length 1 has no second element
 secondv3 (x:y:xs) = y -- otherwise ...
 
+
+
 plusv2 :: Int -> Int -> Int 
 plusv2 x y = x + y 
 
 sucv2 :: Int -> Int 
 sucv2 = plusv2 1
+
+headv2 :: [Int] -> Int 
+headv2 [] = 0
+headv2 (x:xs) = x
+
+tailv2 :: [a] -> [a]
+tailv2 [] = []
+tailv2 (x:xs) = xs 
+
+secondv4 :: [Int] -> Int 
+secondv4 [] = 0
+secondv4 (x:[]) = 0
+secondv4 xs = headv2 (tailv2 xs) 
+
+myid :: [a] -> Int -> a 
+myid (x:_) 0 = x 
+myid (_:xs) n = myid xs (n-1)
+
+-- insert 3 [1,2,4,5] = [1,2,3,4,5]
+insert :: Int -> [Int] -> [Int]
+insert x [] = [x]
+insert e (x:xs) | e <= x = (e:x:xs)
+                | otherwise = x:(insert e xs) 
+
+insertv2 :: Int -> [Int] -> [Int]
+insertv2 x [] = [x]
+insertv2 x (y:ys) = if x <= y then x:y:ys
+                    else y:(insertv2 x ys)
+
+insertionsort :: [Int] -> [Int]
+insertionsort [] = []
+insertionsort (x:xs) = insert x (insertionsort xs)
+
+mergev2 :: [Int] -> [Int] -> [Int]
+-- mergv2 [2,5,6] [1,3,4] = [1,2,3,4,5,6]
+mergev2 [] ys = ys
+mergev2 xs [] = xs
+mergev2 (x:xs) (y:ys) = if x <= y then x:(mergev2 xs (y:ys))
+                        else y: (mergev2 (x:xs) ys)  
+
+-- Splits a list into two equal halves
+splitHalf :: [Int] -> ([Int], [Int])
+splitHalf xs = splitAt n xs
+  where
+    n = length xs `div` 2
+
+
+msort :: [Int] -> [Int]
+msort [] = []
+msort [x] = [x]
+msort xs = mergev2 (msort ys) (msort zs) 
+           where (ys,zs) = splitHalf xs 
+
+
+
