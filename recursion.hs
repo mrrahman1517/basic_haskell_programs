@@ -187,3 +187,19 @@ mergev2 [] ys = ys
 mergev2 xs [] = xs
 mergev2 (x:xs) (y:ys) = if x <= y then x:(mergev2 xs (y:ys))
                         else y: (mergev2 (x:xs) ys)  
+
+-- Splits a list into two equal halves
+splitHalf :: [Int] -> ([Int], [Int])
+splitHalf xs = splitAt n xs
+  where
+    n = length xs `div` 2
+
+
+msort :: [Int] -> [Int]
+msort [] = []
+msort [x] = [x]
+msort xs = mergev2 (msort ys) (msort zs) 
+           where (ys,zs) = splitHalf xs 
+
+
+
