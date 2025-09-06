@@ -51,3 +51,29 @@ fldreverse = foldr (\ x xs -> xs ++ [x]) []
 
 foldappend :: [Int] -> [Int] -> [Int]
 foldappend xs ys = foldr (:) ys xs
+
+oddv7 :: Int -> Bool 
+oddv7 = not . even
+
+compose :: (b->c) -> (a->b) -> (a->c)
+compose f g = \x -> f (g x)
+
+oddv8 :: Int -> Bool 
+oddv8 = compose not even 
+
+allv1 :: (a -> Bool) -> [a] -> Bool 
+allv1 p xs = and [p x | x <- xs]
+
+--ghci> anyv1 (== 1) [2,4]
+--False
+--ghci> anyv1 (== 1) [2,4,1]
+--True
+anyv1 :: (a -> Bool) -> [a] -> Bool 
+anyv1 p xs = or [p x | x <- xs] 
+
+-- takewhilev2 (/= ' ') "abc def" = "abc"
+takewhilev2 :: (a -> Bool) -> [a] -> [a]
+takewhilev2 p [] = []
+takewhilev2 p (x:xs)
+                    | p x = x : takewhilev2 p xs
+                    | otherwise = []
