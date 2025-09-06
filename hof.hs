@@ -36,3 +36,18 @@ sumv5 = foldr (+) 0
 
 productv5 :: [Int] -> Int 
 productv5 = foldr (*) 1
+
+orv5 :: [Bool] -> Bool 
+orv5 = foldr (||) False
+
+andv5 :: [Bool] -> Bool 
+andv5 = foldr (&&) True 
+
+lengthv5 :: [Int] -> Int 
+lengthv5 = foldr (\ _ n -> n + 1) 0
+
+fldreverse :: [Int] -> [Int]
+fldreverse = foldr (\ x xs -> xs ++ [x]) []
+
+foldappend :: [Int] -> [Int] -> [Int]
+foldappend xs ys = foldr (:) ys xs
