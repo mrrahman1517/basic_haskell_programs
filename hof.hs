@@ -51,3 +51,12 @@ fldreverse = foldr (\ x xs -> xs ++ [x]) []
 
 foldappend :: [Int] -> [Int] -> [Int]
 foldappend xs ys = foldr (:) ys xs
+
+oddv7 :: Int -> Bool 
+oddv7 = not . even
+
+compose :: (b->c) -> (a->b) -> (a->c)
+compose f g = \x -> f (g x)
+
+oddv8 :: Int -> Bool 
+oddv8 = compose not even 
