@@ -154,5 +154,5 @@ myinit (x:xs) | null xs = []
             | otherwise = x : myinit xs 
 
 myinitv2 :: [a] -> [a]
-myinitv2 [x] = []
+myinitv2 [_] = []
 myinitv2 (x:xs) = x : myinitv2 xs
