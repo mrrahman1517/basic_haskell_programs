@@ -41,3 +41,24 @@ data Boolv2 = F | T
 andv11 :: Boolv2 -> Boolv2 -> Boolv2 
 andv11 F _ = F 
 andv11 T b = b
+
+data Answer = Y | N | U 
+   deriving (Show, Eq)
+
+flip1 :: Answer -> Answer
+flip1 Y = N 
+flip1 N = Y 
+flip1 U = U
+
+data Shape = Circle Float 
+           | Rect Float Float 
+           deriving (Show)
+
+square :: Float -> Shape 
+square n = Rect n n 
+
+area :: Shape -> Float 
+area (Circle r) = pi * r^2 
+area (Rect x y) = x * y
+area (square x) = x^2
+ 
