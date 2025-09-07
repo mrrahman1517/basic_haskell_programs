@@ -110,10 +110,49 @@ anyv1 p xs = or [p x | x <- xs]
 -- Example: anyv1 (== 1) [2,4,1] = True
 
 -- takewhilev2 (/= ' ') "abc def" = "abc"
+-- | Take elements from a list while a predicate is true
+-- Example: takewhilev2 (/= ' ') "abc def" = "abc"
 takewhilev2 :: (a -> Bool) -> [a] -> [a]
 takewhilev2 p [] = []
 takewhilev2 p (x:xs)
                     | p x = x : takewhilev2 p xs
--- | Take elements from a list while a predicate is true
--- Example: takewhilev2 (/= ' ') "abc def" = "abc"
                     | otherwise = []
+
+
+dropWhilev2 :: (a->Bool)->[a]->[a]
+dropWhilev2 p [] = []
+dropWhilev2 p (x:xs)
+      | p x = dropWhilev2 p xs 
+      | otherwise = x:xs
+
+
+-- tokinzer "abc def" = ["abc","def"]
+-- simple string tokenizer
+--tokenize :: [a] -> [[a]]
+ --tokenize [] = []
+ --tokenize xs = [x| x <- takewhilev2 xs, ] 
+
+
+
+fibv8 :: Int -> Int
+fibv8 0 = 1
+fibv8 1 = 1
+fibv8 n = fibv8 (n-1) + fibv8 (n-2)
+
+mydrop :: Int -> [a] ->[a]
+--drop 0 [] = []
+mydrop 0 xs = xs 
+mydrop _ [] = []
+mydrop n (_:xs) = mydrop (n-1) xs 
+
+-- define a function that removes the last element from a non-empty list
+-- haskell type system cannot express non-empty list
+-- for that we need to use dependently typed languages such as agda or idris
+myinit :: [a] ->[a]
+--init [] = []
+myinit (x:xs) | null xs = []
+            | otherwise = x : myinit xs 
+
+myinitv2 :: [a] -> [a]
+myinitv2 [x] = []
+myinitv2 (x:xs) = x : myinitv2 xs
