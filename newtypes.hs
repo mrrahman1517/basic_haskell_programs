@@ -1,3 +1,17 @@
+data Maybe1 a = MNothing | MJust a 
+   deriving (Show)
+
+data Shape = Circle Float 
+           | Rect Float Float 
+           deriving (Show)
+
+data Boolv2 = F | T 
+   deriving (Show, Eq)
+
+data Answer = Y | N | U 
+   deriving (Show, Eq)
+
+
 type Stringv2 = [Char]
 
 lengthv6 :: Stringv2 -> Int 
@@ -35,9 +49,23 @@ type Trans = Pos -> Pos
 
 -- data declaration
 
-data Boolv2 = F | T 
-   deriving (Show, Eq)
 
 andv11 :: Boolv2 -> Boolv2 -> Boolv2 
 andv11 F _ = F 
 andv11 T b = b
+
+flip1 :: Answer -> Answer
+flip1 Y = N 
+flip1 N = Y 
+flip1 U = U
+
+square :: Float -> Shape 
+square n = Rect n n 
+
+area :: Shape -> Float 
+area (Circle r) = pi * r^2 
+area (Rect x y) = x * y
+
+safediv ::Int -> Int -> Maybe1 Int 
+safediv _ 0 = MNothing
+safediv m n = MJust (m `div` n)

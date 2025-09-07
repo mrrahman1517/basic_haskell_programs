@@ -1,0 +1,10 @@
+cabal-version:  3.8
+name:           shapes1
+version:        0.1.0.0
+
+executable shapes1
+  hs-source-dirs:   src
+  main-is:          Main.hs
+  build-depends:    base >=4.14 && <5, gloss
+  default-language: GHC2021
+  ghc-options:      -threaded -Wall
