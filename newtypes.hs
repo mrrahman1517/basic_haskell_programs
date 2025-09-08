@@ -69,3 +69,48 @@ area (Rect x y) = x * y
 safediv ::Int -> Int -> Maybe1 Int 
 safediv _ 0 = MNothing
 safediv m n = MJust (m `div` n)
+
+safehead :: [a] -> Maybe1 a 
+safehead [] = MNothing
+safehead (x:xs) = MJust (x) 
+
+-- recursive types 
+
+data Nat1 = Zero1 | Succ Nat1
+   deriving (Show)   
+
+toInt :: Nat1 -> Int 
+toInt Zero1 = 0
+toInt (Succ n) = 1 + toInt n 
+
+nat2int :: Nat1 -> Int 
+nat2int Zero1 = 0
+nat2int (Succ n) = 1 + nat2int n 
+
+int2nat :: Int -> Nat1
+int2nat 0 = Zero1
+int2nat n = Succ (int2nat (n-1))
+
+addNat1 :: Nat1 -> Nat1 -> Nat1 
+addNat1 m n = int2nat (nat2int m + nat2int n)
+
+addNat2 :: Nat1 -> Nat1 -> Nat1 
+addNat2 Zero1 n = n 
+addNat2 (Succ m) n = Succ (addNat2 m n)
+
+-- arithmetic expressions
+data Expr = Val Int 
+          | Add Expr Expr 
+          | Mul Expr Expr
+          deriving (Show) 
+
+expr1 :: Expr
+expr1 = Add (Val 2) (Val 3)
+
+expr2 :: Expr 
+expr2 = Add (Val 2) (Mul (Val 3) (Val 4))
+
+eval :: Expr -> Int 
+eval (Val n) = n 
+eval (Add x y) = eval x + eval y 
+eval (Mul x y) = eval x * eval y 
