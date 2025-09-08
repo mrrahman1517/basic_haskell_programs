@@ -77,7 +77,16 @@ safehead (x:xs) = MJust (x)
 -- recursive types 
 
 data Nat1 = Zero1 | Succ Nat1
+   deriving (Show)   
 
 toInt :: Nat1 -> Int 
 toInt Zero1 = 0
 toInt (Succ n) = 1 + toInt n 
+
+nat2int :: Nat1 -> Int 
+nat2int Zero1 = 0
+nat2int (Succ n) = 1 + nat2int n 
+
+int2nat :: Int -> Nat1
+int2nat 0 = Zero1
+int2nat n = Succ (int2nat (n-1))
