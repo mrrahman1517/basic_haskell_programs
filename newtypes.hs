@@ -73,3 +73,11 @@ safediv m n = MJust (m `div` n)
 safehead :: [a] -> Maybe1 a 
 safehead [] = MNothing
 safehead (x:xs) = MJust (x) 
+
+-- recursive types 
+
+data Nat1 = Zero1 | Succ Nat1
+
+toInt :: Nat1 -> Int 
+toInt Zero1 = 0
+toInt (Succ n) = 1 + toInt n 
