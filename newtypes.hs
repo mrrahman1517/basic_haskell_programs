@@ -1,5 +1,5 @@
 data Maybe1 a = MNothing | MJust a 
-deriving (Show)
+   deriving (Show)
 
 data Shape = Circle Float 
            | Rect Float Float 
@@ -69,3 +69,7 @@ area (Rect x y) = x * y
 safediv ::Int -> Int -> Maybe1 Int 
 safediv _ 0 = MNothing
 safediv m n = MJust (m `div` n)
+
+safehead :: [a] -> Maybe1 a 
+safehead [] = MNothing
+safehead (x:xs) = MJust (x) 
