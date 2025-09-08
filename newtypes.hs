@@ -97,3 +97,20 @@ addNat1 m n = int2nat (nat2int m + nat2int n)
 addNat2 :: Nat1 -> Nat1 -> Nat1 
 addNat2 Zero1 n = n 
 addNat2 (Succ m) n = Succ (addNat2 m n)
+
+-- arithmetic expressions
+data Expr = Val Int 
+          | Add Expr Expr 
+          | Mul Expr Expr
+          deriving (Show) 
+
+expr1 :: Expr
+expr1 = Add (Val 2) (Val 3)
+
+expr2 :: Expr 
+expr2 = Add (Val 2) (Mul (Val 3) (Val 4))
+
+eval :: Expr -> Int 
+eval (Val n) = n 
+eval (Add x y) = eval x + eval y 
+eval (Mul x y) = eval x * eval y 
