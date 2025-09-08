@@ -98,11 +98,49 @@ addNat2 :: Nat1 -> Nat1 -> Nat1
 addNat2 Zero1 n = n 
 addNat2 (Succ m) n = Succ (addNat2 m n)
 
+multNat1 :: Nat1 -> Nat1 -> Nat1 
+multNat1 m n = int2nat (nat2int m * nat2int n)
+
+multNat2 :: Nat1 -> Nat1 -> Nat1 
+multNat2 Zero1 n = Zero1
+multNat2 (Succ m) n = addNat2 (multNat2 m n) n 
+
 -- arithmetic expressions
 data Expr = Val Int 
           | Add Expr Expr 
           | Mul Expr Expr
           deriving (Show) 
+
+-- binary tree
+--data TreeNode = Val Int | [TreeNode left, TreeNode right]
+data Tree1 a = Leaf a 
+             | Node (Tree1 a) (Tree1 a)
+
+data Tree2 a = Leaf2 a 
+             | Node2 a (Tree2 a) (Tree2 a)
+
+rootValue2 :: Tree2 a -> a 
+rootValue2 (Leaf2 x) = x 
+rootValue2 (Node2 x _ _) = x 
+
+treeSize2 :: Tree2 a -> Int 
+treeSize2 (Leaf2 x) = 1
+treeSize2 (Node2 _ left right) = 1 + treeSize2 left + treeSize2 right
+
+t2 :: Tree2 Int 
+t2 = Node2 1 
+        (Node2 2 
+              (Leaf2 3) (Leaf2 4)) 
+        (Node2 5 
+              (Leaf2 6) (Leaf2 7))  
+
+
+
+treexpr1 :: Tree1 Int
+treexpr1 = Leaf 5
+
+treexpr2 :: Tree1 Int 
+treexpr2 = Node (Leaf 6) (Leaf 7)
 
 expr1 :: Expr
 expr1 = Add (Val 2) (Val 3)
@@ -113,4 +151,9 @@ expr2 = Add (Val 2) (Mul (Val 3) (Val 4))
 eval :: Expr -> Int 
 eval (Val n) = n 
 eval (Add x y) = eval x + eval y 
-eval (Mul x y) = eval x * eval y 
+eval (Mul x y) = eval x * eval y
+
+size :: Expr -> Int 
+size (Val n) = 1 
+size (Add x y) = size x + size y 
+size (Mul x y) = size x + size y
