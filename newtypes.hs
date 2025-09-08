@@ -1,5 +1,5 @@
 data Maybe1 a = MNothing | MJust a 
-   deriving (Show)
+deriving (Show)
 
 data Shape = Circle Float 
            | Rect Float Float 
