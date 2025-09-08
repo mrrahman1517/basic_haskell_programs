@@ -90,3 +90,10 @@ nat2int (Succ n) = 1 + nat2int n
 int2nat :: Int -> Nat1
 int2nat 0 = Zero1
 int2nat n = Succ (int2nat (n-1))
+
+addNat1 :: Nat1 -> Nat1 -> Nat1 
+addNat1 m n = int2nat (nat2int m + nat2int n)
+
+addNat2 :: Nat1 -> Nat1 -> Nat1 
+addNat2 Zero1 n = n 
+addNat2 (Succ m) n = Succ (addNat2 m n)
