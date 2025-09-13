@@ -16,6 +16,10 @@ All functions are pure and can be used interactively in GHCi.
 -- countdown game
 
 -- | Arithmetic operations for expressions
+
+
+type Result = (Expr, Int)
+
 data Op = Add | Sub | Mul | Div 
 
 -- | Pretty-printing for Op
@@ -24,6 +28,7 @@ instance Show Op where
     show Sub = "-"
     show Mul = "*"
     show Div = "÷"
+
 
 -- | Apply an operation to two integers
 apply :: Op -> Int -> Int -> Int 
@@ -124,3 +129,43 @@ combine l r = [App o l r| o <- [Add, Sub, Mul, Div]]
 -- | All solutions: expressions using the given numbers that evaluate to the target
 solutions :: [Int] -> Int -> [Expr]
 solutions ns n = [e | ns' <- choices ns, e <- exprs ns', eval e == [n]]
+
+
+--results :: [Int] -> [Result]
+--results ns = [(e,n) | e <- exprs ns, n <- eval e]
+
+--combine' :: Result -> Result -> [Result]
+--combine' lr rr = [(e,v)| o <- [Add, Sub, Mul, Div], 
+--                    (l,_) <- lr, 
+--                    (r,_) <- rr, 
+--                    e <- App o l r, 
+--                    v <- eval e]
+
+--type Result = (Expr, Int)
+
+results :: [Int] -> [Result]
+results []     = []
+results [n]    = [(Val n, n) | n > 0]
+results ns     =
+  [ res
+  | (ls, rs) <- split ns
+  , lres     <- results ls
+  , rres     <- results rs
+  , res      <- combine' lres rres
+  ]
+
+combine' :: Result -> Result -> [Result]
+combine' (lExpr, lx) (rExpr, ry) =
+  [ (App o lExpr rExpr, apply o lx ry)
+  | o <- [Add, Sub, Mul, Div]
+  , valid o lx ry
+  ]
+
+-- If you want a fast solver using the bottom-up results:
+solutionsFast :: [Int] -> Int -> [Expr]
+solutionsFast ns target =
+  [ e
+  | ns'     <- choices ns
+  , (e, v)  <- results ns'
+  , v == target
+  ]
