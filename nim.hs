@@ -35,4 +35,34 @@ move :: Board -> Int -> Int -> Board
 move b row num =
   map (\(r, n) -> if r == row then n - num else n) (zip [1..5] b)
 
+-- I/O utilities
 
+newline :: IO ()
+newline = putChar '\n'
+
+stars :: Int -> String 
+stars n = concat (replicate n "* ")
+
+putRow :: Int -> Int -> IO ()
+putRow row num = do putStr (show row)
+                    putStr ": "
+                    putStrLn (stars num)
+
+putBoard :: Board -> IO ()
+putBoard [a,b,c,d,e] = do putRow 1 a 
+                          putRow 2 b
+                          putRow 3 c 
+                          putRow 4 d 
+                          putRow 5 e
+
+getDigit :: String -> IO Int 
+
+getDigit prompt = do putStr prompt 
+                     x <- getChar 
+                     newline 
+                     if isDigit x then 
+                        return (digitToInt x) 
+                     else 
+                        do newline 
+                           putStrLn "Error: invalid digit!"
+                           getDigit prompt
