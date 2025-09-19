@@ -66,3 +66,38 @@ getDigit prompt = do putStr prompt
                         do newline 
                            putStrLn "Error: invalid digit!"
                            getDigit prompt
+
+
+-- flip between players 0 and 1
+next :: Int -> Int 
+--next 1 = 2
+--next 2 = 1
+next player = 1 - player
+
+-- Nim game logic
+
+nim :: IO ()
+nim = play initial 0 -- init board and player 0 as input
+
+-- input current board and curr player
+play :: Board -> Int -> IO ()
+play board player = 
+    do newline
+       putBoard board 
+       if finished board then 
+            do newline
+               putStr "Player "
+               putStr (show (next player))
+               putStrLn " wins!"
+        else
+            do newline
+               putStr "Player "
+               putStrLn (show player)
+               r <- getDigit "Enter a row number: "
+               n <- getDigit "Enter stars to remove: "
+               if valid board r n then
+                  play (move board r n) (next player)
+               else 
+                  do newline
+                     putStrLn "Err: invalid move!"
+                     play board player 
