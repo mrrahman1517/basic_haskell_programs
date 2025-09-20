@@ -40,3 +40,18 @@ twins = filter twin (zip primes (tail primes))
 
 -- take 1000 twins
 -- generate the first 1000 twin prime pairs
+
+--f :: Int -> Int
+--f x = x * x
+
+--g :: Int -> Int 
+
+--g x = 2 * x
+
+--h :: Int -> Int 
+
+--(map (+1). map (*2)) [1,2,3]
+--[3,5,7]
+--ghci> (map ((+1).(*2))) [1,2,3]
+--[3,5,7]
+
