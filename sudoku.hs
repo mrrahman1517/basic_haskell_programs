@@ -122,16 +122,19 @@ single c = length c == 1
 --ssss
 fixed :: Row Choices -> Choices 
 fixed r = concat [c| c <- r, single c]
+-- fixed r = [ch | [ch] <- r]
 
 
 --dropAll :: Choices -> Choices -> Choices
---dropAll forbidden s = filter 
+--dropAll forbidden s = filter (\ch -> ch `notElem` forbidden) s
+dropAll forbidden s = [ch | ch <- s, notElem ch forbidden] 
+
 
 --reduce :: Row Choices -> Row Choices 
 -- reduce ["1234", "1", "34", "3"] = ["24", "1","4","3"]
 -- find single elem lists and delete single elemts from non
  --single lists
---reduce r = all not (map single r)  
+--reduce r = map dropAll (fixed r) r  
 
 -- test double map
 --test = [[1,2,3],[4,5,6],[7,8,9]]
