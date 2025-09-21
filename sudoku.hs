@@ -63,8 +63,103 @@ m = uniform
 ---ghci> map (take 3. drop 6) (take 3(drop 0 m))
 ---["789","789","789"]
 
+-- property 
+-- boxs . boxs = id
+-- ghci> boxs (boxs m) == m
+--["123456789","123456789","123456789","123456789","123456789","123456789","123456789","123456789","123456789"]
 boxs :: Matrix a -> [Row a]
 boxs m = [concat(map (take 3. drop c) (take 3 (drop r m)))| r <- [0,3,6], c <- [0,3,6]]
+
+-- nodups [1,2,3] = true
+-- nodups [1,1,2] = false
+--nodups :: [a] -> Bool 
+--nodups [x] = True
+--nodups (x:xs) = 
+
+
+valid :: Grid -> Bool 
+valid g = myall nodups (rows g) && myall nodups (cols g) && myall nodups (boxs g)
+
+myall :: (a-> Bool) -> [a] -> Bool
+-- all even [2,4,6] = true
+myall p xs = and [p x | x <-xs]
+
+nodups :: Eq a => [a] -> Bool
+nodups [] = True
+nodups (x:xs) = not (elem x xs) && nodups xs
+
+
+-- a basic solver
+
+solve :: Grid -> [Grid]
+
+solve = filter valid . collapse . choices 
+
+--solve g = filter valid (collapse (choices g)) 
+
+-- making choices
+-- replace each blank with all choices 1-9
+
+type Choices = [Value]
+choices :: Grid -> Matrix Choices
+choices g = map (map choice) g
+            where choice v = if v == '.' then 
+                                         ['1'..'9']
+                             else 
+                                [v]
+
+
+--prune :: Matrix Choices -> Matrix Choices 
+
+--prune = pruneBy boxs . pruneBy cols . pruneBy rows
+--        where pruneBy f = f . map reduce . f 
+
+--ghci> map single ["1234","1","34","3"]
+--[False,True,False,True]
+single :: Choices -> Bool
+single c = length c == 1
+
+--ssss
+fixed :: Row Choices -> Choices 
+fixed r = concat [c| c <- r, single c]
+
+
+--dropAll :: Choices -> Choices -> Choices
+--dropAll forbidden s = filter 
+
+--reduce :: Row Choices -> Row Choices 
+-- reduce ["1234", "1", "34", "3"] = ["24", "1","4","3"]
+-- find single elem lists and delete single elemts from non
+ --single lists
+--reduce r = all not (map single r)  
+
+-- test double map
+--test = [[1,2,3],[4,5,6],[7,8,9]]
+-- ghci> map (map (*2)) test
+--[[2,4,6],[8,10,12],[14,16,18]]
+--ghci> map (map (^2)) test
+--[[1,4,9],[16,25,36],[49,64,81]]
+
+-- cp [[1,2],[3,4],[5,6]] = [[1,3,5],[1,3,6],[1,4,5],....]
+
+cp :: [[a]] -> [[a]]
+--cp [] = [[]]
+--cp (xs: xss) = [y:ys | y <- xs, ys <- cp xss]
+cp = sequence
+
+collapse :: Matrix [a] -> [Matrix a]
+--collapse m = cp (map cp m)
+collapse = sequence . map sequence
+
+-- test example
+--test :: Grid
+--test = ["1234",
+--        "5678",
+--        "1234",
+--        "5678"]
+
+-- prune the search space
+
 
 
 
