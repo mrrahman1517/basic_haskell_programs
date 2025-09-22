@@ -129,12 +129,23 @@ fixed r = concat [c| c <- r, single c]
 --dropAll forbidden s = filter (\ch -> ch `notElem` forbidden) s
 dropAll forbidden s = [ch | ch <- s, notElem ch forbidden] 
 
+--ghci> map (dropAll (fixed ["1234", "1", "34", "3"])) ["1234","
+--1","34", "3"]
+--["24","","4",""]
+
+step :: Choices -> Choices -> Choices
+step f c = if single c 
+            then c
+           else dropAll f c  
 
 --reduce :: Row Choices -> Row Choices 
 -- reduce ["1234", "1", "34", "3"] = ["24", "1","4","3"]
 -- find single elem lists and delete single elemts from non
  --single lists
 --reduce r = map dropAll (fixed r) r  
+reduce r = let f = fixed r 
+           in map (step f) r  
+
 
 -- test double map
 --test = [[1,2,3],[4,5,6],[7,8,9]]
