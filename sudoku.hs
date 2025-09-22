@@ -125,62 +125,28 @@ fixed r = concat [c| c <- r, single c]
 -- fixed r = [ch | [ch] <- r]
 
 
---dropAll :: Choices -> Choices -> Choices
---dropAll forbidden s = filter (\ch -> ch `notElem` forbidden) s
 dropAll forbidden s = [ch | ch <- s, notElem ch forbidden] 
-
---ghci> map (dropAll (fixed ["1234", "1", "34", "3"])) ["1234","
---1","34", "3"]
---["24","","4",""]
 
 step :: Choices -> Choices -> Choices
 step f c = if single c 
             then c
            else dropAll f c  
 
---reduce :: Row Choices -> Row Choices 
--- reduce ["1234", "1", "34", "3"] = ["24", "1","4","3"]
--- find single elem lists and delete single elemts from non
- --single lists
---reduce r = map dropAll (fixed r) r  
+reduce :: Row Choices -> Row Choices 
 reduce r = let f = fixed r 
            in map (step f) r  
 
-
--- test double map
---test = [[1,2,3],[4,5,6],[7,8,9]]
--- ghci> map (map (*2)) test
---[[2,4,6],[8,10,12],[14,16,18]]
---ghci> map (map (^2)) test
---[[1,4,9],[16,25,36],[49,64,81]]
-
--- cp [[1,2],[3,4],[5,6]] = [[1,3,5],[1,3,6],[1,4,5],....]
-
 cp :: [[a]] -> [[a]]
---cp [] = [[]]
---cp (xs: xss) = [y:ys | y <- xs, ys <- cp xss]
 cp = sequence
 
 collapse :: Matrix [a] -> [Matrix a]
 --collapse m = cp (map cp m)
 collapse = sequence . map sequence
 
--- test example
---test :: Grid
---test = ["1234",
---        "5678",
---        "1234",
---        "5678"]
-
 -- prune the search space
 
 solve2 :: Grid -> [Grid] 
 solve2 = filter valid . collapse . prune . choices
-
-
---solve :: Grid -> [Grid]
-
---solve = filter valid . collapse . choices 
 
 solve3 = filter valid . collapse . fix prune . choices 
 
