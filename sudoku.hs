@@ -109,10 +109,10 @@ choices g = map (map choice) g
                                 [v]
 
 
---prune :: Matrix Choices -> Matrix Choices 
+prune :: Matrix Choices -> Matrix Choices 
 
---prune = pruneBy boxs . pruneBy cols . pruneBy rows
---        where pruneBy f = f . map reduce . f 
+prune = pruneBy boxs . pruneBy cols . pruneBy rows
+        where pruneBy f = f . map reduce . f 
 
 --ghci> map single ["1234","1","34","3"]
 --[False,True,False,True]
@@ -174,8 +174,20 @@ collapse = sequence . map sequence
 
 -- prune the search space
 
+solve2 :: Grid -> [Grid] 
+solve2 = filter valid . collapse . prune . choices
 
 
+--solve :: Grid -> [Grid]
+
+--solve = filter valid . collapse . choices 
+
+solve3 = filter valid . collapse . fix prune . choices 
+
+-- fix point of a function f(x) = x, then x is a fix point 
+fix :: Eq a => (a->a) -> a -> a
+fix f x = if x == x' then x else fix f x'
+          where x' = f x
 
 
 
