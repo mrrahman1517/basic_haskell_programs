@@ -1,4 +1,5 @@
 
+
 second :: [a] ->a
 second xs = head (tail xs)
 -- head is like car, tail is like cdr in dracket

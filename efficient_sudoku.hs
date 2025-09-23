@@ -122,8 +122,6 @@ single c = length c == 1
 --ssss
 fixed :: Row Choices -> Choices 
 fixed r = concat [c| c <- r, single c]
--- fixed r = [ch | [ch] <- r]
-
 
 dropAll forbidden s = [ch | ch <- s, notElem ch forbidden] 
 
@@ -143,6 +141,12 @@ collapse :: Matrix [a] -> [Matrix a]
 --collapse m = cp (map cp m)
 collapse = sequence . map sequence
 
+expand :: Matrix [a] -> [Matrix [a]]
+expand m = [rows1 ++ [row1 ++ [[x]] ++ row2] ++ rows2 | x <- xs]
+  where
+    (rows1, row:rows2) = break (any (\c -> length c > 1)) m
+    (row1, xs:row2)    = break (\c -> length c > 1) row  
+
 -- prune the search space
 
 solve2 :: Grid -> [Grid] 
@@ -156,6 +160,56 @@ fix f x = if x == x' then x else fix f x'
           where x' = f x
 
 
+void :: Matrix Choices -> Bool 
+void m = any (any null) m 
+
+safe :: Matrix Choices -> Bool
+safe m = all consistent (rows m) && 
+         all consistent (cols m) &&
+         all consistent (boxs m)
+
+consistent :: Row Choices -> Bool 
+consistent r = nodups (fixed r) 
+
+blocked :: Matrix Choices -> Bool 
+blocked m = void m || not (safe m)
+
+-- choices :: Grid -> Matrix Choices 
+-- prune :: Matrix Choices -> Matrix Choices 
+solve4 :: Grid -> [Grid]
+solve4 = search . prune . choices
+
+search :: Matrix Choices -> [Grid]
+search m | blocked          m = []
+         | all (all single) m = collapse m 
+         | otherwise          = 
+                [g | m' <- expand m,
+                     g <- search (prune m')]
+
+gentle :: Grid
+gentle = [".1.42...5",
+          "..2.71.39",
+          ".......4.",
+          "2.71....6",
+          "....4....",
+          "6....74.3",
+          ".7.......",
+          "12.73.5..",
+          "3...82.7."]
+
+minimal :: Grid
+minimal = [".98......",
+           "....7....",
+           "....15...",
+           "1........",
+           "...2....9",
+           "...9.6.82",
+           ".......3.",
+           "5.1......",
+           "...4...2."]
 
 
-
+-- ghc -O2 efficient_sudoku.hs
+-- ./efficient_sudoku
+main   :: IO ()
+main = putStrLn (unlines (head (solve4 minimal)))

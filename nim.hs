@@ -1,3 +1,4 @@
+
 -- game of nim
 
 -- getLine :: IO String

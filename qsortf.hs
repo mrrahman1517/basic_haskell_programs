@@ -1,3 +1,4 @@
+
 qs [] = []
 qs (x:xs) = qs ys ++ [x] ++ qs zs
             where
