@@ -196,3 +196,20 @@ gentle = [".1.42...5",
           ".7.......",
           "12.73.5..",
           "3...82.7."]
+
+minimal :: Grid
+minimal = [".98......",
+           "....7....",
+           "....15...",
+           "1........",
+           "...2....9",
+           "...9.6.82",
+           ".......3.",
+           "5.1......",
+           "...4...2."]
+
+
+-- ghc -O2 efficient_sudoku.hs
+-- ./efficient_sudoku
+main   :: IO ()
+main = putStrLn (unlines (head (solve4 minimal)))
