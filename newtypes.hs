@@ -1,3 +1,4 @@
+
 data Maybe1 a = MNothing | MJust a 
    deriving (Show)
 

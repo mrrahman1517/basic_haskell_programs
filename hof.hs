@@ -1,3 +1,4 @@
+
 -- | Apply a function twice to a value
 
 -- Example: twice (+1) 3 = 5
