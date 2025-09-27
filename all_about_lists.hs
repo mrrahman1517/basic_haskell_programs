@@ -28,3 +28,11 @@ pqsort (x:xs) = force greater `par`
 verifysort :: (Ord a) => [a] -> Bool
 verifysort [] = True
 verifysort (x:xs) = length [(x1,x2)| (x1,x2) <- (zip (x:xs) xs), x1 > x2] == 0 
+
+-- more efficient
+
+-- simple recursive (no intermediate structures)
+verifysortv2 :: Ord a => [a] -> Bool
+verifysortv2 []         = True
+verifysortv2 [_]        = True
+verifysortv2 (x:y:xs)   = x <= y && verifysortv2 (y:xs)
