@@ -75,3 +75,8 @@ myinc = fmap (+1)
 
 --ghci> (myinc.myinc) (Node (Leaf 1) (Leaf 2))
 --Node (Leaf 3) (Leaf 4)
+
+-- fmap0 :: a -> f a
+-- fmap1 :: (a-b)-> fa -> fb
+-- fmap2 :: (a->b->c)-> fa -> fb -> fc
+-- fmap3 :: (a->b->c->d)->f a -> f b -> f c -> f d
