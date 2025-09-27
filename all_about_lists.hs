@@ -18,7 +18,7 @@ myqsort (x:xs) = leftlist ++ [x] ++ rightlist
 --ghci -package parallel -package deepseq all_about_lists.hs
 --ghci> verifysort (pqsort [1,20,11,34,1,10,45545,-2])
 
-pqsort :: (Ord a) => [a] -> [a]
+pqsort :: (Ord a, NFData a) => [a] -> [a]
 pqsort [] = []
 pqsort (x:xs) = force greater `par` 
     (force lesser `pseq` (lesser ++ [x] ++ greater))
